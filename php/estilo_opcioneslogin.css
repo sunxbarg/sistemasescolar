@@ -1,0 +1,126 @@
+@import url(fontawesome-all.min.css);
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body {
+	background-color: #f2f1e8;
+	font-family: "Source Sans Pro", Helvetica, sans-serif;
+	font-size: 18px;
+	display: flex;
+	justify-content: center; /* Centrar horizontalmente */
+	align-items: center; /* Centrar verticalmente */
+	height: 100vh; /* Asegurar que el contenedor ocupe toda la altura de la ventana */
+	flex-direction: column;
+}
+
+a {
+	text-decoration: none;
+	color: #000000;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  font-size: 11px;
+  display: inline-block;
+  padding: 5px;
+  user-select: none;
+}
+
+.contenedor-opciones {
+	padding: 20px;
+	background: #ffffff;
+	border: 2px solid #000000; /* Cambiado: borde negro */
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.registro {
+	color: #000000;
+	display: block;
+	border:	3px ;
+	border-style: solid;
+	border-color: #000000;
+	border-radius: 15px;
+	background-color: #45a049;
+	width: 70%;
+	padding: 10px;
+	margin: 10px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.registro:hover {
+	background: #80808099;
+}
+
+.subirimagenes {
+	color: #000000;
+	display: block;
+	border:	3px ;
+	border-style: solid;
+	border-color: #000000;
+	border-radius: 15px;
+	background-color: #45a049;
+	width: 60%;
+	padding: 10px;
+	margin: 10px;
+	text-align: center;
+}
+
+.subirimagenes:hover {
+	background: #80808099;
+}
+
+.cerrarsesion {
+	color: #000000;
+	display: block;
+	border: 3px;
+	border-style: solid;
+	border-color: #000000;
+	border-radius: 15px;
+	background-color: #45a049;
+	width: 35%;
+	padding: 10px;
+	margin: 10px;
+	text-align: center;
+}
+
+.cerrarsesion:hover {
+	background: #80808099;
+}
+
+.contenedor-h1 {
+	color: #000000;
+	display: block;
+  	border: 15px;
+  	border-style: double;
+  	border-color: #000000;
+  	border-radius: 15px;
+  	background-color: #ffffff;
+  	width: 95%;
+  	padding: 10px;
+  	margin: 10px;
+  	text-align: center;
+  
+}
+
+.padding {
+	padding-bottom: 15px;
+}

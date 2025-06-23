@@ -1,0 +1,55 @@
+@import url(fontawesome-all.min.css);
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900");
+
+body {
+  background-color: #f2f1e8;
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+}
+
+.container {
+  background-color: #ffffff;
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 20px;
+  border: 1px solid #000000; /* Cambiado: borde negro */
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold; /* Agregado: letras en negrita */
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #000000; /* Cambiado: borde negro */
+  border-radius: 4px;
+}
+
+input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50; /* Cambiado: color verde */
+  color: #ffffff;
+  border: 1px solid #000000; /* Agregado: borde negro */
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  border: 1px solid #000000; /* Agregado: borde negro */
+  background-color: #45a049; /* Cambiado: color verde oscuro */
+}

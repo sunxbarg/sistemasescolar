@@ -1,0 +1,80 @@
+/* Custom Styles for Sobre Nosotros page */
+body {
+    font-family: Arial, sans-serif;
+}
+
+#header .logo h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+nav ul.nav {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul.nav li {
+    display: inline;
+    margin-right: 15px;
+}
+
+#main {
+    padding: 60px 0;
+}
+
+#main header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+#main article h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+#main article p,
+#main article ul {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+#footer {
+    background-color: #f8f9fa;
+}
+
+#footer h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+#footer form .form-control {
+    border-radius: 0;
+    box-shadow: none;
+}
+
+#footer ul.list-unstyled {
+    padding: 0;
+    list-style: none;
+}
+
+#footer ul.list-unstyled li {
+    display: inline;
+    margin-right: 10px;
+}
+
+#footer ul.list-unstyled li a {
+    text-decoration: none;
+    color: #333;
+}
+
+#footer ul.list-unstyled li a:hover {
+    color: #007bff;
+}
+
+#footer .btn-primary {
+    background-color: #007bff;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}

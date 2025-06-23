@@ -1,0 +1,278 @@
+@import url(fontawesome-all.min.css);
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f2f1e8;
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+  padding: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: #000000;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Estilos para contenedores */
+.container {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.contenedor-opciones {
+  padding: 20px;
+  background: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+/* Estilos para formularios */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="tel"],
+input[type="file"],
+input[type="submit"],
+select,
+textarea {
+  padding: 12px;
+  border: 3px solid #000000;
+  border-radius: 15px;
+  background-color: #ffffff;
+  width: 100%;
+  margin: 10px 0;
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+input[type="file"]::file-selector-button {
+  padding: 10px 20px;
+  border: 3px solid #000000;
+  border-radius: 5px;
+  background-color: #45a049;
+  color: #000000;
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+/* Estilos para botones */
+.btn-verde,
+.btn-submit,
+input[type="submit"],
+.registro,
+.subirimagenes,
+.cerrarsesion {
+  background-color: #45a049 !important;
+  border: 3px solid #000000 !important;
+  color: #000000 !important;
+  font-weight: bold !important;
+  padding: 12px 20px !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  text-align: center !important;
+  display: inline-block !important;
+  transition: background-color 0.3s !important;
+  text-decoration: none !important;
+  font-size: 16px !important;
+}
+
+.btn-verde:hover,
+.btn-submit:hover,
+input[type="submit"]:hover,
+.registro:hover,
+.subirimagenes:hover,
+.cerrarsesion:hover {
+  background-color: #3d8b40 !important;
+}
+
+.btn-sm {
+  padding: 8px 15px !important;
+  font-size: 14px !important;
+}
+
+/* Estilos para títulos */
+h1, h2, h3, h4, h5, h6 {
+  color: #000000;
+  margin: 1rem 0;
+  font-weight: 900;
+}
+
+.contenedor-h1,
+.contenedor-h2,
+.contenedor-inputs {
+  color: #000000;
+  display: block;
+  border: 15px double #000000;
+  border-radius: 15px;
+  background-color: #f5deb3;
+  width: 95%;
+  padding: 15px;
+  margin: 15px auto;
+  text-align: center;
+}
+
+/* Estilos para tablas */
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+  border: 2px solid #000000;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border: 1px solid #000000;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #000000;
+  background-color: #f5deb3;
+}
+
+/* Estilos para alertas y mensajes */
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-success {
+  color: #000000;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert-danger {
+  color: #000000;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.success-message {
+  background-color: #4CAF50;
+  color: #ffffff;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+/* Estilos para checkboxes y radios */
+.form-check-input {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.form-check-label {
+  vertical-align: middle;
+}
+
+/* Estilos para footer */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  font-size: 11px;
+  display: inline-block;
+  padding: 5px;
+  user-select: none;
+  width: 100%;
+  text-align: center;
+  background-color: #f2f1e8;
+  border-top: 1px solid #000000;
+}
+
+/* Estilos para modales */
+.modal-content {
+  border: 2px solid #000000;
+  border-radius: 10px;
+}
+
+.modal-header {
+  background-color: #f5deb3;
+  border-bottom: 2px solid #000000;
+  border-radius: 8px 8px 0 0;
+}
+
+.modal-footer {
+  border-top: 2px solid #000000;
+  border-radius: 0 0 8px 8px;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .container, .contenedor-opciones {
+    width: 95%;
+    padding: 15px;
+  }
+  
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="file"],
+  input[type="submit"],
+  select,
+  textarea {
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  .btn-verde,
+  .btn-submit,
+  input[type="submit"],
+  .registro,
+  .subirimagenes,
+  .cerrarsesion {
+    padding: 10px 15px !important;
+    font-size: 14px !important;
+  }
+}
+.form-group input[type="email"] {
+  padding: 12px !important;
+  border: 3px solid #000000 !important;
+  border-radius: 15px !important;
+  background-color: #ffffff !important;
+  width: 100% !important;
+  margin: 10px 0 !important;
+  font-family: "Source Sans Pro", Helvetica, sans-serif !important;
+  font-size: 16px !important;
+  height: auto !important;
+  display: block !important;
+}

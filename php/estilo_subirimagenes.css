@@ -1,0 +1,176 @@
+@import url(fontawesome-all.min.css);
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f2f1e8;
+  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+  color: #000000;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+input[type="text"],
+input[type="file"],
+input[type="submit"] {
+  padding: 10px;
+  border: 3px solid #000000;
+  border-radius: 15px;
+  background-color: #ffffff;
+  width: 100%;
+  margin: 10px 0;
+}
+
+input[type="file"]::file-selector-button {
+  padding: 10px 20px;
+  border: 3px solid #000000;
+  border-radius: 5px;
+  background-color: #45a049;
+  color: #000000;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+input[type="submit"] {
+  background-color: #45a049;
+  color: #000000;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Estilos para botones verdes consistentes */
+.btn-success, 
+.btn-success:hover,
+.btn-success:focus {
+  background-color: #45a049;
+  border-color: #000000;
+  color: #000000;
+  font-weight: bold;
+}
+
+.btn-success:hover {
+  background-color: #3d8b40;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.contenedor {
+  padding: 20px;
+  background: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 95%;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.contenedor-h2,
+.contenedor-inputs {
+  color: #000000;
+  display: block;
+  border: 15px double #000000;
+  border-radius: 15px;
+  background-color: #f5deb3;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.botonderecha,
+.botonizquierda {
+  padding: 10px 20px;
+  border: 3px solid #000000;
+  border-radius: 5px;
+  background-color: #45a049;
+  color: #000000;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.botonderecha:hover,
+.botonizquierda:hover {
+  background-color: #3d8b40;
+}
+
+.opciones {
+  display: flex;
+  justify-content: center;
+}
+
+/* Estilos específicos para la tabla de administración */
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+  border: 2px solid #000000;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #000000;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #000000;
+  background-color: #f5deb3;
+}
+
+.table tbody + tbody {
+  border-top: 2px solid #000000;
+}
+/* Estilo mejorado para el input de tipo file */
+.form-group input[type="file"] {
+    padding: 15px !important;
+    border: 3px solid #000000 !important;
+    border-radius: 15px !important;
+    background-color: #ffffff !important;
+    width: 100% !important;
+    margin: 10px 0 !important;
+    cursor: pointer !important;
+    height: auto !important;
+}
+
+.form-group input[type="file"]::file-selector-button {
+    padding: 10px 20px !important;
+    border: 3px solid #000000 !important;
+    border-radius: 5px !important;
+    background-color: #45a049 !important;
+    color: #000000 !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    margin-right: 15px !important;
+}
+
+.form-group input[type="file"]::file-selector-button:hover {
+    background-color: #3d8b40 !important;
+}
