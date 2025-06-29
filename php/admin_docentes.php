@@ -12,6 +12,30 @@ if (isset($_SESSION['mensaje'])) {
     unset($_SESSION['mensaje']);
 }
 
+// Función para validar nombres (sin números)
+function validarNombre($nombre) {
+    // Eliminar espacios en blanco al inicio y final
+    $nombre = trim($nombre);
+    
+    // Verificar si el nombre contiene números
+    if (preg_match('/[0-9]/', $nombre)) {
+        return false;
+    }
+    
+    // Verificar longitud mínima (2 caracteres)
+    if (strlen($nombre) < 2) {
+        return false;
+    }
+    
+    return true;
+}
+
+// Función para validar teléfono (solo números y caracteres especiales permitidos)
+function validarTelefono($telefono) {
+    // Permitir números, espacios, guiones, paréntesis y signo +
+    return preg_match('/^[\d\s\-+()]{8,20}$/', $telefono);
+}
+
 // Procesar la eliminación de un docente
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['action'] == 'delete' && isset($_POST['id'])) {
     $id = $_POST['id'];
@@ -36,6 +60,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
     $telefono = $_POST['telefono'];
     $destacado = isset($_POST['destacado']) ? 1 : 0;
 
+    // Validar nombre y apellido
+    if (!validarNombre($nombre)) {
+        $_SESSION['mensaje'] = "El nombre no puede contener números y debe tener al menos 2 caracteres.";
+        header("Location: admin_docentes.php");
+        exit();
+    }
+    
+    if (!validarNombre($apellido)) {
+        $_SESSION['mensaje'] = "El apellido no puede contener números y debe tener al menos 2 caracteres.";
+        header("Location: admin_docentes.php");
+        exit();
+    }
+    
+    // Validar teléfono
+    if (!empty($telefono) && !validarTelefono($telefono)) {
+        $_SESSION['mensaje'] = "El teléfono solo puede contener números, espacios, guiones, paréntesis y signo +.";
+        header("Location: admin_docentes.php");
+        exit();
+    }
+
     $query = "INSERT INTO docentes (nombre, apellido, email, telefono, destacado) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("ssssi", $nombre, $apellido, $email, $telefono, $destacado);
@@ -57,6 +101,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action']) && $_POST['a
     $email = $_POST['email'];
     $telefono = $_POST['telefono'];
     $destacado = isset($_POST['destacado']) ? 1 : 0;
+
+    // Validar nombre y apellido
+    if (!validarNombre($nombre)) {
+        $_SESSION['mensaje'] = "El nombre no puede contener números y debe tener al menos 2 caracteres.";
+        header("Location: admin_docentes.php");
+        exit();
+    }
+    
+    if (!validarNombre($apellido)) {
+        $_SESSION['mensaje'] = "El apellido no puede contener números y debe tener al menos 2 caracteres.";
+        header("Location: admin_docentes.php");
+        exit();
+    }
+    
+    // Validar teléfono
+    if (!empty($telefono) && !validarTelefono($telefono)) {
+        $_SESSION['mensaje'] = "El teléfono solo puede contener números, espacios, guiones, paréntesis y signo +.";
+        header("Location: admin_docentes.php");
+        exit();
+    }
 
     $query = "UPDATE docentes SET nombre = ?, apellido = ?, email = ?, telefono = ?, destacado = ? WHERE id = ?";
     $stmt = $conn->prepare($query);
@@ -116,7 +180,129 @@ $result = $conn->query($query);
         .table td, .table th {
             border: 1px solid #000000 !important;
         }
+        /* Estilo para mensajes de error */
+        .invalid-input {
+            border: 2px solid #ff0000 !important;
+        }
+        .error-message {
+            color: #ff0000;
+            font-size: 0.85em;
+            margin-top: 5px;
+        }
     </style>
+    <script>
+        // Validación en tiempo real para nombres y apellidos
+        function validarNombreInput(input) {
+            const nombre = input.value.trim();
+            const regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s'-]+$/;
+            
+            // Mostrar mensaje de error si contiene números o caracteres inválidos
+            if (nombre.length > 0 && !regex.test(nombre)) {
+                input.classList.add('invalid-input');
+                
+                // Crear o actualizar mensaje de error
+                let errorElement = input.nextElementSibling;
+                if (!errorElement || !errorElement.classList.contains('error-message')) {
+                    errorElement = document.createElement('div');
+                    errorElement.classList.add('error-message');
+                    input.parentNode.appendChild(errorElement);
+                }
+                errorElement.textContent = "Solo se permiten letras, espacios, apóstrofes y guiones";
+                return false;
+            }
+            
+            // Validar longitud mínima
+            if (nombre.length > 0 && nombre.length < 2) {
+                input.classList.add('invalid-input');
+                
+                let errorElement = input.nextElementSibling;
+                if (!errorElement || !errorElement.classList.contains('error-message')) {
+                    errorElement = document.createElement('div');
+                    errorElement.classList.add('error-message');
+                    input.parentNode.appendChild(errorElement);
+                }
+                errorElement.textContent = "Debe tener al menos 2 caracteres";
+                return false;
+            }
+            
+            // Si es válido, remover clases de error
+            input.classList.remove('invalid-input');
+            const errorElement = input.nextElementSibling;
+            if (errorElement && errorElement.classList.contains('error-message')) {
+                errorElement.textContent = "";
+            }
+            return true;
+        }
+        
+        // Validación en tiempo real para teléfono
+        function validarTelefonoInput(input) {
+            const telefono = input.value.trim();
+            const regex = /^[\d\s\-+()]{8,20}$/;
+            
+            // Mostrar mensaje de error si contiene letras
+            if (telefono.length > 0 && !regex.test(telefono)) {
+                input.classList.add('invalid-input');
+                
+                // Crear o actualizar mensaje de error
+                let errorElement = input.nextElementSibling;
+                if (!errorElement || !errorElement.classList.contains('error-message')) {
+                    errorElement = document.createElement('div');
+                    errorElement.classList.add('error-message');
+                    input.parentNode.appendChild(errorElement);
+                }
+                errorElement.textContent = "Solo números, espacios, guiones, paréntesis y signo +";
+                return false;
+            }
+            
+            // Validar longitud mínima
+            if (telefono.length > 0 && telefono.replace(/[\s\-+()]/g, '').length < 8) {
+                input.classList.add('invalid-input');
+                
+                let errorElement = input.nextElementSibling;
+                if (!errorElement || !errorElement.classList.contains('error-message')) {
+                    errorElement = document.createElement('div');
+                    errorElement.classList.add('error-message');
+                    input.parentNode.appendChild(errorElement);
+                }
+                errorElement.textContent = "Debe tener al menos 8 dígitos";
+                return false;
+            }
+            
+            // Si es válido, remover clases de error
+            input.classList.remove('invalid-input');
+            const errorElement = input.nextElementSibling;
+            if (errorElement && errorElement.classList.contains('error-message')) {
+                errorElement.textContent = "";
+            }
+            return true;
+        }
+        
+        // Validar todo el formulario antes de enviar
+        function validarFormulario() {
+            const nombreInput = document.getElementById('nombre');
+            const apellidoInput = document.getElementById('apellido');
+            const telefonoInput = document.getElementById('telefono');
+            
+            const nombreValido = validarNombreInput(nombreInput);
+            const apellidoValido = validarNombreInput(apellidoInput);
+            const telefonoValido = telefonoInput.value === '' ? true : validarTelefonoInput(telefonoInput);
+            
+            return nombreValido && apellidoValido && telefonoValido;
+        }
+        
+        // Validar formulario de edición
+        function validarEdicion(id) {
+            const nombreInput = document.getElementById('nombre' + id);
+            const apellidoInput = document.getElementById('apellido' + id);
+            const telefonoInput = document.getElementById('telefono' + id);
+            
+            const nombreValido = validarNombreInput(nombreInput);
+            const apellidoValido = validarNombreInput(apellidoInput);
+            const telefonoValido = telefonoInput.value === '' ? true : validarTelefonoInput(telefonoInput);
+            
+            return nombreValido && apellidoValido && telefonoValido;
+        }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -132,15 +318,17 @@ $result = $conn->query($query);
         
         <!-- Formulario para crear un nuevo docente -->
         <div>
-            <form action="admin_docentes.php" method="post">
+            <form action="admin_docentes.php" method="post" onsubmit="return validarFormulario()">
                 <input type="hidden" name="action" value="create">
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" name="nombre" id="nombre" class="form-control" required>
+                    <input type="text" name="nombre" id="nombre" class="form-control" required
+                           oninput="validarNombreInput(this)">
                 </div>
                 <div class="form-group">
                     <label for="apellido">Apellido:</label>
-                    <input type="text" name="apellido" id="apellido" class="form-control" required>
+                    <input type="text" name="apellido" id="apellido" class="form-control" required
+                           oninput="validarNombreInput(this)">
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
@@ -148,7 +336,9 @@ $result = $conn->query($query);
                 </div>
                 <div class="form-group">
                     <label for="telefono">Teléfono:</label>
-                    <input type="text" name="telefono" id="telefono" class="form-control">
+                    <input type="text" name="telefono" id="telefono" class="form-control"
+                           oninput="validarTelefonoInput(this)"
+                           placeholder="Ej: +58 412-1234567">
                 </div>
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" id="destacado" name="destacado" value="1">
@@ -199,7 +389,7 @@ $result = $conn->query($query);
                         <div class="modal fade" id="editarModal<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel<?= $row['id'] ?>" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
-                                    <form action="admin_docentes.php" method="post">
+                                    <form action="admin_docentes.php" method="post" onsubmit="return validarEdicion(<?= $row['id'] ?>)">
                                         <input type="hidden" name="action" value="edit">
                                         <input type="hidden" name="id" value="<?= $row['id'] ?>">
                                         <div class="modal-header">
@@ -211,22 +401,32 @@ $result = $conn->query($query);
                                         <div class="modal-body">
                                             <div class="form-group">
                                                 <label for="nombre<?= $row['id'] ?>">Nombre:</label>
-                                                <input type="text" name="nombre" id="nombre<?= $row['id'] ?>" class="form-control" value="<?= $row['nombre'] ?>" required>
+                                                <input type="text" name="nombre" id="nombre<?= $row['id'] ?>" class="form-control" 
+                                                       value="<?= $row['nombre'] ?>" required
+                                                       oninput="validarNombreInput(this)">
                                             </div>
                                             <div class="form-group">
                                                 <label for="apellido<?= $row['id'] ?>">Apellido:</label>
-                                                <input type="text" name="apellido" id="apellido<?= $row['id'] ?>" class="form-control" value="<?= $row['apellido'] ?>" required>
+                                                <input type="text" name="apellido" id="apellido<?= $row['id'] ?>" class="form-control" 
+                                                       value="<?= $row['apellido'] ?>" required
+                                                       oninput="validarNombreInput(this)">
                                             </div>
                                             <div class="form-group">
                                                 <label for="email<?= $row['id'] ?>">Email:</label>
-                                                <input type="email" name="email" id="email<?= $row['id'] ?>" class="form-control" value="<?= $row['email'] ?>" required>
+                                                <input type="email" name="email" id="email<?= $row['id'] ?>" class="form-control" 
+                                                       value="<?= $row['email'] ?>" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="telefono<?= $row['id'] ?>">Teléfono:</label>
-                                                <input type="text" name="telefono" id="telefono<?= $row['id'] ?>" class="form-control" value="<?= $row['telefono'] ?>">
+                                                <input type="text" name="telefono" id="telefono<?= $row['id'] ?>" class="form-control" 
+                                                       value="<?= $row['telefono'] ?>"
+                                                       oninput="validarTelefonoInput(this)"
+                                                       placeholder="Ej: +58 412-1234567">
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="destacado" id="destacado<?= $row['id'] ?>" value="1" <?= $row['destacado'] ? 'checked' : '' ?>>
+                                                <input class="form-check-input" type="checkbox" name="destacado" 
+                                                       id="destacado<?= $row['id'] ?>" value="1" 
+                                                       <?= $row['destacado'] ? 'checked' : '' ?>>
                                                 <label class="form-check-label" for="destacado<?= $row['id'] ?>">Destacado</label>
                                             </div>
                                         </div>

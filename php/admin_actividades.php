@@ -6,6 +6,64 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['rol'] !== 'admin') {
 }
 include 'db_conexion.php';
 
+// Función para generar PDF
+require('fpdf/fpdf.php');
+
+// Crear clase extendida para soporte UTF-8
+class PDF extends FPDF {
+    function Header() {
+        $this->SetFont('Arial','B',16);
+        $this->Cell(0,10,iconv('UTF-8','ISO-8859-1','Reporte de Actividades'),0,1,'C');
+        $this->Ln(10);
+    }
+    
+    function Footer() {
+        $this->SetY(-15);
+        $this->SetFont('Arial','I',8);
+        $this->Cell(0,10,iconv('UTF-8','ISO-8859-1','Página ').$this->PageNo().'/{nb}',0,0,'C');
+    }
+}
+
+function generarPDF($conn) {
+    // Obtener actividades
+    $query = "SELECT * FROM articulos";
+    $result = $conn->query($query);
+    
+    // Crear PDF con soporte UTF-8
+    $pdf = new PDF();
+    $pdf->AliasNbPages();
+    $pdf->AddPage();
+    
+    // Encabezados de tabla
+    $pdf->SetFont('Arial','B',10);
+    $pdf->Cell(10,10,iconv('UTF-8','ISO-8859-1','ID'),1,0,'C');
+    $pdf->Cell(60,10,iconv('UTF-8','ISO-8859-1','Título'),1,0,'C');
+    $pdf->Cell(30,10,iconv('UTF-8','ISO-8859-1','Destacado'),1,0,'C');
+    $pdf->Cell(30,10,iconv('UTF-8','ISO-8859-1','Fecha'),1,1,'C');
+    
+    // Contenido de tabla
+    $pdf->SetFont('Arial','',10);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $pdf->Cell(10,10,$row['id'],1,0,'C');
+            $pdf->Cell(60,10,iconv('UTF-8','ISO-8859-1',substr($row['titulo'],0,30)),1,0);
+            $pdf->Cell(30,10,iconv('UTF-8','ISO-8859-1',$row['destacado'] ? 'Sí' : 'No'),1,0,'C');
+            $pdf->Cell(30,10,date('d/m/Y', strtotime($row['created_at'])),1,1,'C');
+        }
+    } else {
+        $pdf->Cell(130,10,iconv('UTF-8','ISO-8859-1','No hay actividades disponibles'),1,1,'C');
+    }
+    
+    // Salida del PDF
+    $pdf->Output('D', 'reporte_actividades_'.date('Ymd').'.pdf');
+}
+
+// Si se solicita generar PDF
+if (isset($_GET['generar_pdf'])) {
+    generarPDF($conn);
+    exit();
+}
+
 function getDestacadoLabel($destacado) {
     return $destacado ? 'Sí' : 'No';
 }
@@ -128,9 +186,26 @@ $result = $conn->query($query);
             border-radius: 5px !important;
             cursor: pointer !important;
         }
+        .btn-pdf {
+            background-color: #d9534f !important;
+            border-color: #000000 !important;
+            color: #000000 !important;
+            font-weight: bold !important;
+        }
+        .btn-pdf:hover {
+            background-color: #c9302c !important;
+        }
     </style>
 </head>
 <body>
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h3>Administración de Actividades</h3>
+            <a href="admin_actividades.php?generar_pdf=1" class="btn btn-pdf">
+                <i class="fas fa-file-pdf"></i> Generar PDF
+            </a>
+        </div>
+
     <div class="container">
         <h3>Subir Nueva Actividad</h3>
         <?php if (isset($mensaje)) : ?>
@@ -251,6 +326,7 @@ $result = $conn->query($query);
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script>
         window.scrollTo({
             top: 0,
