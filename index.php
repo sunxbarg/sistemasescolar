@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE HTML>
 <html>
 
@@ -26,7 +27,6 @@
 </head>
 
 <body class="is-preload">
-    <?php session_start(); ?>
     <!-- Wrapper -->
     <div id="wrapper">
         <!-- Header -->

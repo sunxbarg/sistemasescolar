@@ -1,0 +1,14 @@
+# Dockerignore para optimizar la construcción
+.git
+.gitignore
+README.md
+README_DOCKER.md
+.env
+.DS_Store
+Thumbs.db
+node_modules
+*.log
+.vscode
+.idea
+start.sh
+docker-compose.yml
